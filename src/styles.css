@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background: url("/assets/images/scissors-combs-copy-space.jpg");
+  background-size: cover;
+  background-position: center;
+  /* background-attachment: fixed; */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Agendamento</h1>
+<div mat-dialog-content>
+  <p>Agendar horário: {{ data.horario }} na {{ data.dia }}</p>
+  <mat-form-field>
+    <mat-label>Graduação</mat-label>
+    <mat-select [(ngModel)]="graduacao">
+      <mat-option *ngFor="let opcao of opcoesGraduacao" [value]="opcao">
+        {{ opcao }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>SARAM</mat-label>
+    <input type="number" matInput [(ngModel)]="saram" max="9999999999" />
+    <mat-error *ngIf="saram.length > 10"
+      >SARAM deve ter no máximo 10 números.</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nome de Guerra</mat-label>
+    <input matInput [(ngModel)]="nomeGuerra" maxlength="20" />
+    <mat-error *ngIf="nomeGuerra.length > 20"
+      >Nome de Guerra deve ter no máximo 20 caracteres.</mat-error
+    >
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="confirm()"
+    [disabled]="
+      saram.toString().length == 0 ||
+      saram.toString().length > 10 ||
+      nomeGuerra.length == 0 ||
+      nomeGuerra.length > 20
+    "
+  >
+    Confirmar
+  </button>
+</div>
