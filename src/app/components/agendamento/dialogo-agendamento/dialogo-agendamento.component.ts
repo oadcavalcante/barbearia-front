@@ -4,8 +4,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export interface DialogData {
   dia: string;
   horario: string;
+  gradposto: string;
   saram: string;
   nomeGuerra: string;
+  om: string;
 }
 
 @Component({
@@ -14,10 +16,12 @@ export interface DialogData {
   styleUrls: ['./dialogo-agendamento.component.css']
 })
 export class DialogoAgendamentoComponent {
-  graduacao: string = '';
+  gradposto: string = '';
   opcoesGraduacao: string[] = ['S2', 'S1', 'CB', '3S', '2S', '1S'];
   saram: string = '';
   nomeGuerra: string = '';
+  om: string = '';
+  oms: string[] = ['CCA-BR', 'CIAER', 'COMGEP', 'COPAC', 'DIREF', 'DIRENS', 'EMAER', 'OABR', 'SEFA', 'CENCIAR', 'SECPROM', 'ASPAER', 'CECOMSAER', 'GABAER', 'COJAER'];
 
   constructor(
     public dialogRef: MatDialogRef<DialogoAgendamentoComponent>,
@@ -29,6 +33,6 @@ export class DialogoAgendamentoComponent {
   }
 
   confirm(): void {
-    this.dialogRef.close({ graduacao: this.graduacao, saram: this.saram, nomeGuerra: this.nomeGuerra });
+    this.dialogRef.close({ gradposto: this.gradposto, saram: this.saram, nomeGuerra: this.nomeGuerra, om: this.om });
   }
 }

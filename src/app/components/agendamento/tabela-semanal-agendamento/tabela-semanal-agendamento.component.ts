@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { Router } from '@angular/router';
 import { DialogoAgendamentoComponent } from '../dialogo-agendamento/dialogo-agendamento.component';
 import { DialogoCancelamentoAgendamentoComponent } from '../dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
+import { AgendamentoService } from '../agendamento.service';
 
 export interface Horario {
   hora: string;
@@ -47,17 +47,18 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
 
   displayedColumns: string[] = ['hora', 'segunda', 'terca', 'quarta', 'quinta', 'sexta'];
   dataSource = ELEMENT_DATA;
-  diasDaSemana: string[] = [];
-  dataInicial: Date | undefined;
+  diasDaSemana: string[] = ['segunda', 'terca', 'quarta', 'quinta', 'sexta'];
 
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
+    private agendamentoService: AgendamentoService
   ) { }
 
   ngOnInit(): void {
     this.getSemanaAtual();
+    this.loadAgendamentos();
   }
 
   openDialog(dia: string, horario: string): void {
@@ -69,30 +70,35 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const horarioSelecionado = this.dataSource.find(h => h.hora === horario);
-        if (horarioSelecionado) {
-          horarioSelecionado[dia] = result.graduacao + ' ' + result.nomeGuerra.toUpperCase();
-          switch (dia) {
-            case 'segunda':
-              horarioSelecionado.disponivelSegunda = false;
-              break;
-            case 'terca':
-              horarioSelecionado.disponivelTerca = false;
-              break;
-            case 'quarta':
-              horarioSelecionado.disponivelQuarta = false;
-              break;
-            case 'quinta':
-              horarioSelecionado.disponivelQuinta = false;
-              break;
-            case 'sexta':
-              horarioSelecionado.disponivelSexta = false;
-              break;
-            default:
-              break;
+        const agendamento = {
+          data: new Date().toISOString().split('T')[0],
+          hora: horario,
+          diaSemana: dia,
+          militar: {
+            saram: result.saram,
+            gradposto: result.gradposto,
+            nomeGuerra: result.nomeGuerra,
+            om: result.om,
           }
+        };
+        this.agendamentoService.saveAgendamento(agendamento).subscribe(() => {
+          const novoAgendamento: Horario = {
+            hora: horario,
+            segunda: agendamento.diaSemana === 'segunda' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
+            terca: agendamento.diaSemana === 'terca' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
+            quarta: agendamento.diaSemana === 'quarta' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
+            quinta: agendamento.diaSemana === 'quinta' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
+            sexta: agendamento.diaSemana === 'sexta' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
+            disponivelSegunda: true,
+            disponivelTerca: true,
+            disponivelQuarta: true,
+            disponivelQuinta: true,
+            disponivelSexta: true
+          };
+
+          this.dataSource = this.dataSource.map(item => item.hora === horario ? novoAgendamento : item);
           this.snackBar.open('Agendamento realizado com sucesso!', 'Fechar', { duration: 3000 });
-        }
+        });
       }
     });
   }
@@ -100,57 +106,55 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   desmarcar(element: Horario, dia: string, horario: string): void {
     const dialogRef = this.dialog.open(DialogoCancelamentoAgendamentoComponent, {
       width: '300px',
-      data: { dia: dia, horario: horario }
+      data: { dia: dia, horario: horario },
+      autoFocus: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        switch (dia) {
-          case 'segunda':
-            element.segunda = '';
-            element.disponivelSegunda = true;
-            break;
-          case 'terca':
-            element.terca = '';
-            element.disponivelTerca = true;
-            break;
-          case 'quarta':
-            element.quarta = '';
-            element.disponivelQuarta = true;
-            break;
-          case 'quinta':
-            element.quinta = '';
-            element.disponivelQuinta = true;
-            break;
-          case 'sexta':
-            element.sexta = '';
-            element.disponivelSexta = true;
-            break;
-          default:
-            break;
-        }
-        this.snackBar.open('Agendamento desmarcado com sucesso!', 'Fechar', { duration: 3000 });
+        this.agendamentoService.deleteAgendamento(result.id).subscribe(() => {
+          this.loadAgendamentos();
+          this.snackBar.open('Agendamento desmarcado com sucesso!', 'Fechar', { duration: 3000 });
+        });
       }
     });
   }
 
   getSemanaAtual(): void {
     const hoje = new Date();
-
     const diaSemanaAtual = hoje.getDay();
     const inicioDaSemana = new Date(hoje);
     inicioDaSemana.setDate(hoje.getDate() - ((diaSemanaAtual + 6) % 7));
 
-    this.diasDaSemana = [];
     for (let i = 0; i < 5; i++) {
       const dia = new Date(inicioDaSemana);
       dia.setDate(inicioDaSemana.getDate() + i);
-
-      const diaFormatado = ('0' + dia.getDate()).slice(-2) + '/' + ('0' + (dia.getMonth() + 1)).slice(-2);
-      this.diasDaSemana.push(diaFormatado);
+      this.diasDaSemana[i] = this.diasDaSemana[i] + ` - ${dia.getDate().toString().padStart(2, '0')}/${(dia.getMonth() + 1).toString().padStart(2, '0')}`;
     }
   }
 
+  loadAgendamentos(): void {
+    this.agendamentoService.getAgendamentos().subscribe(agendamentos => {
+      console.log('Agendamentos recebidos:', agendamentos);
+
+      this.dataSource.forEach(horario => {
+        this.diasDaSemana.forEach(dia => {
+          const diaDaSemana = dia.split(' ')[0].toLowerCase();
+          console.log('Dia da semana:', diaDaSemana);
+
+          const agendamento = agendamentos.find(a => a.hora === horario.hora && a.diaSemana === diaDaSemana);
+          console.log('Agendamento encontrado:', agendamento);
+
+          if (agendamento) {
+            horario[diaDaSemana] = `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}`;
+            horario[`disponivel${diaDaSemana.charAt(0).toUpperCase() + diaDaSemana.slice(1)}`] = false;
+          } else {
+            horario[diaDaSemana] = '';
+            horario[`disponivel${diaDaSemana.charAt(0).toUpperCase() + diaDaSemana.slice(1)}`] = true;
+          }
+        });
+      });
+    });
+  }
 
 }
-
