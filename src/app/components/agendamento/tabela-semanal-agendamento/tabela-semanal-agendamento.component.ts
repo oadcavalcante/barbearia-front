@@ -4,22 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DialogoAgendamentoComponent } from '../dialogo-agendamento/dialogo-agendamento.component';
 import { DialogoCancelamentoAgendamentoComponent } from '../dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
-import { AgendamentoService } from '../agendamento.service';
-
-export interface Horario {
-  hora: string;
-  segunda: string;
-  terca: string;
-  quarta: string;
-  quinta: string;
-  sexta: string;
-  disponivelSegunda: boolean;
-  disponivelTerca: boolean;
-  disponivelQuarta: boolean;
-  disponivelQuinta: boolean;
-  disponivelSexta: boolean;
-  [key: string]: string | boolean;
-}
+import { Horario } from 'src/app/interfaces/horario';
+import { Agendamento} from 'src/app/interfaces/agendamento';
+import { Militar } from 'src/app/interfaces/militar';
+import { AgendamentoService } from 'src/app/services/agendamento.service';
 
 const ELEMENT_DATA: Horario[] = [
   { hora: '09:00', segunda: '', terca: '', quarta: '', quinta: '', sexta: '', disponivelSegunda: true, disponivelTerca: true, disponivelQuarta: true, disponivelQuinta: true, disponivelSexta: true },
@@ -61,29 +49,32 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     this.loadAgendamentos();
   }
 
-  openDialog(dia: string, horario: string): void {
+  openDialog(diaSemana: string, hora: string): void {
     const dialogRef = this.dialog.open(DialogoAgendamentoComponent, {
       width: '300px',
-      data: { dia, horario },
+      data: { diaSemana, hora },
       autoFocus: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const agendamento = {
+        const agendamento: Agendamento = {
           data: new Date().toISOString().split('T')[0],
-          hora: horario,
-          diaSemana: dia,
+          hora: hora,
+          diaSemana: diaSemana,
           militar: {
+            id: result.id,
             saram: result.saram,
             gradposto: result.gradposto,
             nomeGuerra: result.nomeGuerra,
             om: result.om,
           }
         };
-        this.agendamentoService.saveAgendamento(agendamento).subscribe(() => {
+
+        this.agendamentoService.saveAgendamento(agendamento).subscribe(savedAgendamento => {
+          console.log(agendamento);
           const novoAgendamento: Horario = {
-            hora: horario,
+            hora: hora,
             segunda: agendamento.diaSemana === 'segunda' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
             terca: agendamento.diaSemana === 'terca' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
             quarta: agendamento.diaSemana === 'quarta' ? `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}` : '',
@@ -96,17 +87,20 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
             disponivelSexta: true
           };
 
-          this.dataSource = this.dataSource.map(item => item.hora === horario ? novoAgendamento : item);
+          this.dataSource = this.dataSource.map(item => item.hora === hora ? novoAgendamento : item);
           this.snackBar.open('Agendamento realizado com sucesso!', 'Fechar', { duration: 3000 });
+        }, error => {
+          console.error('Erro ao salvar agendamento:', error);
+          this.snackBar.open('Erro ao salvar agendamento. Por favor, tente novamente.', 'Fechar', { duration: 3000 });
         });
       }
     });
   }
 
-  desmarcar(element: Horario, dia: string, horario: string): void {
+  desmarcar(element: Horario, dia: string, hora: string): void {
     const dialogRef = this.dialog.open(DialogoCancelamentoAgendamentoComponent, {
       width: '300px',
-      data: { dia: dia, horario: horario },
+      data: { dia: dia, hora: hora },
       autoFocus: true
     });
 
@@ -129,7 +123,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     for (let i = 0; i < 5; i++) {
       const dia = new Date(inicioDaSemana);
       dia.setDate(inicioDaSemana.getDate() + i);
-      this.diasDaSemana[i] =`${dia.getDate().toString().padStart(2, '0')}/${(dia.getMonth() + 1).toString().padStart(2, '0')}`;
+      this.diasDaSemana[i] = `${dia.getDate().toString().padStart(2, '0')}/${(dia.getMonth() + 1).toString().padStart(2, '0')}`;
     }
   }
 
@@ -141,6 +135,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
         this.diasDaSemana.forEach(dia => {
           const diaDaSemana = dia.split(' ')[0].toLowerCase();
           const agendamento = agendamentos.find(a => a.hora === horario.hora && a.diaSemana === diaDaSemana);
+          console.log(agendamento);
 
           if (agendamento) {
             horario[diaDaSemana] = `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}`;

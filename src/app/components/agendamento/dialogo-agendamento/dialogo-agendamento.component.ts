@@ -16,11 +16,13 @@ export interface DialogData {
   styleUrls: ['./dialogo-agendamento.component.css']
 })
 export class DialogoAgendamentoComponent {
-  gradposto: string = '';
-  opcoesGraduacao: string[] = ['S2', 'S1', 'CB', '3S', '2S', '1S'];
+  // Esses dados serão os dados que o usuário irá preencher no diálogo ao clicar em "Disponível"
   saram: string = '';
-  nomeGuerra: string = '';
+  gradposto: string = '';
   om: string = '';
+  nomeGuerra: string = '';
+
+  opcoesGraduacao: string[] = ['S2', 'S1', 'CB', '3S', '2S', '1S'];
   oms: string[] = ['CCA-BR', 'CIAER', 'COMGEP', 'COPAC', 'DIREF', 'DIRENS', 'EMAER', 'OABR', 'SEFA', 'CENCIAR', 'SECPROM', 'ASPAER', 'CECOMSAER', 'GABAER', 'COJAER'];
 
   constructor(
@@ -33,6 +35,6 @@ export class DialogoAgendamentoComponent {
   }
 
   confirm(): void {
-    this.dialogRef.close({ gradposto: this.gradposto, saram: this.saram, nomeGuerra: this.nomeGuerra, om: this.om });
+    this.dialogRef.close({ saram: this.saram, gradposto: this.gradposto, nomeGuerra: this.nomeGuerra, om: this.om });
   }
 }
