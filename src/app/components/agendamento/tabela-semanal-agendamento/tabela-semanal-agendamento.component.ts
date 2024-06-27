@@ -129,7 +129,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     for (let i = 0; i < 5; i++) {
       const dia = new Date(inicioDaSemana);
       dia.setDate(inicioDaSemana.getDate() + i);
-      this.diasDaSemana[i] = this.diasDaSemana[i] + ` - ${dia.getDate().toString().padStart(2, '0')}/${(dia.getMonth() + 1).toString().padStart(2, '0')}`;
+      this.diasDaSemana[i] =`${dia.getDate().toString().padStart(2, '0')}/${(dia.getMonth() + 1).toString().padStart(2, '0')}`;
     }
   }
 
@@ -140,10 +140,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
       this.dataSource.forEach(horario => {
         this.diasDaSemana.forEach(dia => {
           const diaDaSemana = dia.split(' ')[0].toLowerCase();
-          console.log('Dia da semana:', diaDaSemana);
-
           const agendamento = agendamentos.find(a => a.hora === horario.hora && a.diaSemana === diaDaSemana);
-          console.log('Agendamento encontrado:', agendamento);
 
           if (agendamento) {
             horario[diaDaSemana] = `${agendamento.militar.gradposto} ${agendamento.militar.nomeGuerra.toUpperCase()}`;
