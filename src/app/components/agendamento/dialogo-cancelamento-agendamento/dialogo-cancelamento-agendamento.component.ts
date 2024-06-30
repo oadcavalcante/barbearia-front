@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
   dia: string;
-  horario: string;
+  hora: string;
   saram: string;
 }
 
@@ -24,6 +24,6 @@ export class DialogoCancelamentoAgendamentoComponent {
   }
 
   onYesClick(): void {
-    this.dialogRef.close({ dia: this.data.dia, horario: this.data.horario, saram: this.data.saram });
+    this.dialogRef.close({ dia: this.data.dia, hora: this.data.hora, saram: this.data.saram });
   }
 }

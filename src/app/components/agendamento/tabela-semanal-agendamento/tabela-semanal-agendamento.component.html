@@ -1,4 +1,5 @@
 <mat-card>
+  <!-- Header do Card -->
   <mat-card-header>
     <mat-card-title class="mat-card-title-center">
       BARBEARIA - GRADUADOS - RAMAL 2691
@@ -11,169 +12,50 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="hora">
-        <th mat-header-cell *matHeaderCellDef>Hora</th>
-        <td mat-cell *matCellDef="let element">
-          <b>{{ element.hora }}</b>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="segunda">
-        <th mat-header-cell *matHeaderCellDef>
-          Segunda - {{ diasDaSemana[0] }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            [style.color]="element.disponivelSegunda ? '#0033A0' : 'red'"
-            [style.cursor]="
-              element.disponivelSegunda ? 'pointer' : 'not-allowed'
-            "
-            (click)="
-              element.disponivelSegunda
-                ? openDialog('segunda', element.hora)
-                : null
-            "
-          >
-            {{ element.segunda || "Disponível" }}
-          </span>
-
-          <button
-            class="botao-desmarcar"
-            *ngIf="element.segunda"
-            (click)="desmarcar(element, 'segunda', element.hora)"
-            title="desmarcar"
-          >
-            <img
-              src="/assets/images/cancel.png"
-              alt="Botão Cancelar Agendamento"
-              width="15px"
-              height="15px"
-            />
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="terca">
-        <th mat-header-cell *matHeaderCellDef>Terça - {{ diasDaSemana[1] }}</th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            [style.color]="element.disponivelTerca ? '#0033A0' : 'red'"
-            [style.cursor]="element.disponivelTerca ? 'pointer' : 'not-allowed'"
-            (click)="
-              element.disponivelTerca ? openDialog('terca', element.hora) : null
-            "
-          >
-            {{ element.terca || "Disponível" }}
-          </span>
-          <button
-            class="botao-desmarcar"
-            *ngIf="element.terca"
-            (click)="desmarcar(element, 'terca', element.hora)"
-            title="desmarcar"
-          >
-            <img
-              src="/assets/images/cancel.png"
-              alt="Botão Cancelar Agendamento"
-              width="15px"
-              height="15px"
-            />
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="quarta">
-        <th mat-header-cell *matHeaderCellDef>
-          Quarta - {{ diasDaSemana[2] }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            [style.color]="element.disponivelQuarta ? '#0033A0' : 'red'"
-            [style.cursor]="
-              element.disponivelQuarta ? 'pointer' : 'not-allowed'
-            "
-            (click)="
-              element.disponivelQuarta
-                ? openDialog('quarta', element.hora)
-                : null
-            "
-          >
-            {{ element.quarta || "Disponível" }}
-          </span>
-          <button
-            class="botao-desmarcar"
-            *ngIf="element.quarta"
-            (click)="desmarcar(element, 'quarta', element.hora)"
-            title="desmarcar"
-          >
-            <img
-              src="/assets/images/cancel.png"
-              alt="Botão Cancelar Agendamento"
-              width="15px"
-              height="15px"
-            />
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="quinta">
-        <th mat-header-cell *matHeaderCellDef>
-          Quinta - {{ diasDaSemana[3] }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            [style.color]="element.disponivelQuinta ? '#0033A0' : 'red'"
-            [style.cursor]="
-              element.disponivelQuinta ? 'pointer' : 'not-allowed'
-            "
-            (click)="
-              element.disponivelQuinta
-                ? openDialog('quinta', element.hora)
-                : null
-            "
-          >
-            {{ element.quinta || "Disponível" }}
-          </span>
-          <button
-            class="botao-desmarcar"
-            *ngIf="element.quinta"
-            (click)="desmarcar(element, 'quinta', element.hora)"
-            title="desmarcar"
-          >
-            <img
-              src="/assets/images/cancel.png"
-              alt="Botão Cancelar Agendamento"
-              width="15px"
-              height="15px"
-            />
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="sexta">
-        <th mat-header-cell *matHeaderCellDef>Sexta - {{ diasDaSemana[4] }}</th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            [style.color]="element.disponivelSexta ? '#0033A0' : 'red'"
-            [style.cursor]="element.disponivelSexta ? 'pointer' : 'not-allowed'"
-            (click)="
-              element.disponivelSexta ? openDialog('sexta', element.hora) : null
-            "
-          >
-            {{ element.sexta || "Disponível" }}
-          </span>
-          <button
-            class="botao-desmarcar"
-            *ngIf="element.sexta"
-            (click)="desmarcar(element, 'sexta', element.hora)"
-            title="desmarcar"
-          >
-            <img
-              src="/assets/images/cancel.png"
-              alt="Botão Cancelar Agendamento"
-              width="15px"
-              height="15px"
-            />
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    <div *ngIf="dataSource.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Horário</th>
+            <th *ngFor="let dia of diasDaSemana">{{ dia | uppercase }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let horario of horarios">
+            <td>{{ horario }}</td>
+            <td *ngFor="let dia of diasDaSemana">
+              <div
+                *ngIf="getAgendamentoParaDiaHora(dia, horario) as agendamento"
+              >
+                <span
+                  >{{ agendamento.militar.nomeGuerra }} ({{
+                    agendamento.militar.gradposto
+                  }})</span
+                >
+                <button
+                  mat-icon-button
+                  (click)="desmarcarAgendamento(agendamento)"
+                >
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="!getAgendamentoParaDiaHora(dia, horario)">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  (click)="agendarCorte(dia, horario)"
+                >
+                  Disponível
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br />
+    <div style="margin-inline: 15px" *ngIf="dataSource.length === 0">
+      Não há agendamentos disponíveis.
+    </div>
   </mat-card-content>
 </mat-card>
