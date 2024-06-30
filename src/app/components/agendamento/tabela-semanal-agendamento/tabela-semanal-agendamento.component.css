@@ -46,15 +46,10 @@ td.mat-cell {
 }
 
 .botao-desmarcar {
-  background: #943636;
-  color: #fff;
   border: none;
   border-radius: 100%;
   cursor: pointer;
-}
-
-.botao-desmarcar:hover {
-  background: #710808;
+  background-color: #fff;
 }
 
 @media (max-width: 768px) {

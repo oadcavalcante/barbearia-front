@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { DialogoAgendamentoComponent } from '../dialogo-agendamento/dialogo-agendamento.component';
 import { DialogoCancelamentoAgendamentoComponent } from '../dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
 import { Horario } from 'src/app/interfaces/horario';
-import { Agendamento} from 'src/app/interfaces/agendamento';
-import { Militar } from 'src/app/interfaces/militar';
+import { Agendamento } from 'src/app/interfaces/agendamento';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 
 const ELEMENT_DATA: Horario[] = [

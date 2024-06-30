@@ -36,14 +36,19 @@
           >
             {{ element.segunda || "Disponível" }}
           </span>
-          &nbsp;
+
           <button
             class="botao-desmarcar"
             *ngIf="element.segunda"
             (click)="desmarcar(element, 'segunda', element.hora)"
             title="desmarcar"
           >
-            x
+            <img
+              src="/assets/images/cancel.png"
+              alt="Botão Cancelar Agendamento"
+              width="15px"
+              height="15px"
+            />
           </button>
         </td>
       </ng-container>
@@ -59,14 +64,18 @@
           >
             {{ element.terca || "Disponível" }}
           </span>
-          &nbsp;
           <button
             class="botao-desmarcar"
             *ngIf="element.terca"
             (click)="desmarcar(element, 'terca', element.hora)"
             title="desmarcar"
           >
-            x
+            <img
+              src="/assets/images/cancel.png"
+              alt="Botão Cancelar Agendamento"
+              width="15px"
+              height="15px"
+            />
           </button>
         </td>
       </ng-container>
@@ -88,14 +97,18 @@
           >
             {{ element.quarta || "Disponível" }}
           </span>
-          &nbsp;
           <button
             class="botao-desmarcar"
             *ngIf="element.quarta"
             (click)="desmarcar(element, 'quarta', element.hora)"
             title="desmarcar"
           >
-            x
+            <img
+              src="/assets/images/cancel.png"
+              alt="Botão Cancelar Agendamento"
+              width="15px"
+              height="15px"
+            />
           </button>
         </td>
       </ng-container>
@@ -117,14 +130,18 @@
           >
             {{ element.quinta || "Disponível" }}
           </span>
-          &nbsp;
           <button
             class="botao-desmarcar"
             *ngIf="element.quinta"
             (click)="desmarcar(element, 'quinta', element.hora)"
             title="desmarcar"
           >
-            x
+            <img
+              src="/assets/images/cancel.png"
+              alt="Botão Cancelar Agendamento"
+              width="15px"
+              height="15px"
+            />
           </button>
         </td>
       </ng-container>
@@ -140,14 +157,18 @@
           >
             {{ element.sexta || "Disponível" }}
           </span>
-          &nbsp;
           <button
             class="botao-desmarcar"
             *ngIf="element.sexta"
             (click)="desmarcar(element, 'sexta', element.hora)"
             title="desmarcar"
           >
-            x
+            <img
+              src="/assets/images/cancel.png"
+              alt="Botão Cancelar Agendamento"
+              width="15px"
+              height="15px"
+            />
           </button>
         </td>
       </ng-container>
