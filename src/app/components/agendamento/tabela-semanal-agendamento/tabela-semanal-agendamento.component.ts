@@ -30,7 +30,11 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   loadAgendamentos(): void {
     this.agendamentoService.getAgendamentos().subscribe(agendamentos => {
       console.log('Agendamentos recebidos do service:', agendamentos);
-      this.dataSource = agendamentos;
+      this.dataSource = agendamentos.map(agendamento => ({
+        ...agendamento,
+        diaSemana: agendamento.diaSemana.trim().toLowerCase(),
+        hora: agendamento.hora.trim()
+      }));
     });
   }
 
@@ -70,15 +74,6 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     });
   }
 
-  // Função auxiliar para obter a data a partir do dia da semana
-  getDataFromDiaSemana(diaSemana: string): string {
-    const partes = diaSemana.split(' - ')[1].split('/');
-    const dia = partes[0];
-    const mes = partes[1];
-    const ano = new Date().getFullYear();
-    return `${ano}-${mes}-${dia}`;
-  }
-
   // Função responsável por Abrir o Diálogo de Cancelamento e Desmarcar.
   desmarcarAgendamento(element: Agendamento): void {
     const dialogRef = this.dialog.open(DialogoCancelamentoAgendamentoComponent, {
@@ -92,6 +87,15 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
         console.log('Implemente a Lógica para desmarcar o agendamento');
       }
     });
+  }
+
+  // Função auxiliar para obter a data a partir do dia da semana
+  getDataFromDiaSemana(diaSemana: string): string {
+    const partes = diaSemana.split(' - ')[1].split('/');
+    const dia = partes[0];
+    const mes = partes[1];
+    const ano = new Date().getFullYear();
+    return `${ano}-${mes}-${dia}`;
   }
 
   // Função Responsável por pegar os dias da semana atual formatados para passar para as colunas da tabela.
@@ -108,9 +112,23 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     }
   }
 
+  // Função auxiliar para formatar a hora sem os segundos
+  formatarHora(hora: string): string {
+    return hora.slice(0, 5); // Retorna apenas HH:mm
+  }
+
   // Função para obter o agendamento de um dia específico e horário específico
-  getAgendamentoParaDiaHora(dia: string, horario: string): Agendamento | undefined {
-    const diaSemana = dia.split(' - ')[0];
-    return this.dataSource.find(agendamento => agendamento.diaSemana === diaSemana && agendamento.hora === horario);
+  getAgendamentoParaDiaHora(dia: string, hora: string): Agendamento | undefined {
+    const diaSemana = dia.split(' - ')[0].trim().toLowerCase();
+    const horaFormatada = this.formatarHora(hora);
+
+    const agendamento = this.dataSource.find((agendamento) => {
+      const diaMatch = agendamento.diaSemana.toLowerCase() === diaSemana;
+      const horaAgendamentoFormatada = this.formatarHora(agendamento.hora);
+      const horaMatch = horaAgendamentoFormatada === horaFormatada;
+      return diaMatch && horaMatch;
+    });
+
+    return agendamento;
   }
 }

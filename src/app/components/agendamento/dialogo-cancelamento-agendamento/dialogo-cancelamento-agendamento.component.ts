@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
-  dia: string;
+  diaSemana: string;
   hora: string;
   saram: string;
 }
@@ -24,6 +24,6 @@ export class DialogoCancelamentoAgendamentoComponent {
   }
 
   onYesClick(): void {
-    this.dialogRef.close({ dia: this.data.dia, hora: this.data.hora, saram: this.data.saram });
+    this.dialogRef.close({ dia: this.data.diaSemana, hora: this.data.hora, saram: this.data.saram });
   }
 }

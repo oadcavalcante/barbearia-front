@@ -16,28 +16,18 @@
       <table>
         <thead>
           <tr>
-            <th>Horário</th>
+            <th>HORÁRIO</th>
             <th *ngFor="let dia of diasDaSemana">{{ dia | uppercase }}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let horario of horarios">
-            <td>{{ horario }}</td>
+            <td><b>{{ horario }}</b></td>
             <td *ngFor="let dia of diasDaSemana">
-              <div
-                *ngIf="getAgendamentoParaDiaHora(dia, horario) as agendamento"
-              >
-                <span
-                  >{{ agendamento.militar.nomeGuerra }} ({{
-                    agendamento.militar.gradposto
-                  }})</span
-                >
-                <button
-                  mat-icon-button
-                  (click)="desmarcarAgendamento(agendamento)"
-                >
-                  <mat-icon>cancel</mat-icon>
-                </button>
+              <div *ngIf="getAgendamentoParaDiaHora(dia, horario) as agendamento" class="agendamento-container" (click)="desmarcarAgendamento(agendamento)" title="clique para desmarcar">
+                <div class="agendamento-info">
+                  <span>{{ agendamento.militar.gradposto }} {{ agendamento.militar.nomeGuerra }}</span>
+                </div>
               </div>
               <div *ngIf="!getAgendamentoParaDiaHora(dia, horario)">
                 <button
