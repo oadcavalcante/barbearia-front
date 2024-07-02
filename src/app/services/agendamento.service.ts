@@ -22,7 +22,7 @@ export class AgendamentoService {
   }
 
   // Faz uma requisição DELETE para API excluindo o agendamento.
-  deleteAgendamento(id: any): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteAgendamento(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

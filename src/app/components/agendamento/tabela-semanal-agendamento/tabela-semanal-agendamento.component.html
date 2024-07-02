@@ -12,40 +12,44 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div *ngIf="dataSource.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>HORÁRIO</th>
-            <th *ngFor="let dia of diasDaSemana">{{ dia | uppercase }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let horario of horarios">
-            <td><b>{{ horario }}</b></td>
-            <td *ngFor="let dia of diasDaSemana">
-              <div *ngIf="getAgendamentoParaDiaHora(dia, horario) as agendamento" class="agendamento-container" (click)="desmarcarAgendamento(agendamento)" title="clique para desmarcar">
-                <div class="agendamento-info">
-                  <span>{{ agendamento.militar.gradposto }} {{ agendamento.militar.nomeGuerra }}</span>
-                </div>
-              </div>
-              <div *ngIf="!getAgendamentoParaDiaHora(dia, horario)">
-                <button
-                  mat-raised-button
-                  color="primary"
-                  (click)="agendarCorte(dia, horario)"
+    <table>
+      <thead>
+        <tr>
+          <th>HORÁRIO</th>
+          <th *ngFor="let dia of diasDaSemana">{{ dia | uppercase }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hora of horarios">
+          <td>
+            <b>{{ hora }}</b>
+          </td>
+          <td *ngFor="let dia of diasDaSemana">
+            <div
+              *ngIf="getAgendamentoParaDiaHora(dia, hora) as agendamento"
+              class="agendamento-container"
+              (click)="desmarcarAgendamento(agendamento)"
+              title="clique para desmarcar"
+            >
+              <div class="agendamento-info">
+                <span
+                  >{{ agendamento.militar.gradposto }}
+                  {{ agendamento.militar.nomeGuerra }}</span
                 >
-                  Disponível
-                </button>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <br />
-    <div style="margin-inline: 15px" *ngIf="dataSource.length === 0">
-      Não há agendamentos disponíveis.
-    </div>
+            </div>
+            <div *ngIf="!getAgendamentoParaDiaHora(dia, hora)">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="agendarCorte(dia, hora)"
+              >
+                Disponível
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </mat-card-content>
 </mat-card>

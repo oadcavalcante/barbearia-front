@@ -16,7 +16,7 @@ export class DialogoAgendamentoComponent {
   };
 
   opcoesGraduacao: string[] = ['S2', 'S1', 'CB', '3S', '2S', '1S'];
-  oms: string[] = ['CCA-BR', 'CIAER', 'COMGEP', 'COPAC', 'DIREF', 'DIRENS', 'EMAER', 'OABR', 'SEFA', 'CENCIAR', 'SECPROM', 'ASPAER', 'CECOMSAER', 'GABAER', 'COJAER'];
+  oms: string[] = ['CCA-BR', 'CDCAER', 'CIAER', 'COMGEP', 'COPAC', 'DIREF', 'DIRENS', 'EMAER', 'OABR', 'SEFA', 'CENCIAR', 'SECPROM', 'ASPAER', 'CECOMSAER', 'GABAER', 'COJAER'];
 
   constructor(
     public dialogRef: MatDialogRef<DialogoAgendamentoComponent>,

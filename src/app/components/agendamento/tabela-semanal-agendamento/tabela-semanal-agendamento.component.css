@@ -4,6 +4,8 @@ mat-card {
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 mat-card-header {
@@ -17,6 +19,7 @@ mat-card-header {
 }
 
 mat-card-content {
+  width: 100%;
   padding: 0 0 16px 0;
 }
 
@@ -30,7 +33,6 @@ td {
   text-align: center;
   padding: 10px;
   border: 0.5px solid #ccc;
-  vertical-align: middle;
 }
 
 th {
@@ -43,31 +45,10 @@ td {
   background-color: #f5f5f5;
 }
 
-td .btn-disponivel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  background-color: #2a74c3;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-td .btn-disponivel:hover {
-  background-color: #1f5a9b;
-}
-
 .agendamento-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100%;
+  justify-content: center;
 }
 
 .agendamento-info {
@@ -85,6 +66,7 @@ td .btn-disponivel:hover {
 
 .agendamento-info span {
   font-weight: 500;
+  padding: 0 10px;
 }
 
 .agendamento-info:hover {
