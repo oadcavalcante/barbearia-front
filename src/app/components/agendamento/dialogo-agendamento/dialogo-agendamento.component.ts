@@ -30,4 +30,11 @@ export class DialogoAgendamentoComponent {
   onSaveClick(): void {
     this.dialogRef.close(this.militar);
   }
+
+  validateNumericInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    // Remove caracteres que não são dígitos e limita a 9 dígitos
+    input.value = input.value.replace(/\D/g, '').slice(0, 9);
+    this.militar.saram = input.value; // Atualiza o modelo ngModel manualmente
+  }
 }

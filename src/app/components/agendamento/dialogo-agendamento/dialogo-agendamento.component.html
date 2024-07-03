@@ -4,7 +4,12 @@
   <p>Hora: {{ data.hora }}</p>
   <mat-form-field>
     <mat-label>SARAM</mat-label>
-    <input matInput [(ngModel)]="militar.saram" />
+    <input
+      matInput
+      [(ngModel)]="militar.saram"
+      maxlength="9"
+      (input)="validateNumericInput($event)"
+    />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Graduação / Posto</mat-label>
@@ -16,7 +21,7 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Nome de Guerra</mat-label>
-    <input matInput [(ngModel)]="militar.nomeGuerra" />
+    <input matInput [(ngModel)]="militar.nomeGuerra" maxlength="25" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Organização Militar (OM)</mat-label>
