@@ -43,6 +43,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
             } else if (diaSemana !== 1) { // Se não for segunda-feira, retrocede para segunda-feira
               dataAgendamento.setDate(dataAgendamento.getDate() - (diaSemana - 1));
             }
+
             // Filtra apenas os agendamentos dentro do intervalo de segunda a sexta-feira
             return dataAgendamento >= this.inicioDaSemana && dataAgendamento <= this.fimDaSemana;
           });
@@ -101,7 +102,6 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogoAgendamentoComponent, {
       width: '300px',
       data: { diaSemana, hora: hora },
-      autoFocus: true
     });
 
     dialogRef.afterClosed().subscribe((militar: Militar) => {
