@@ -16,11 +16,20 @@ import { trigger, transition, style, animate } from '@angular/animations';
   animations: [
     trigger('agendamentoAnimacao', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        style({ opacity: 0, transform: 'translateY(-15px)' }),
         animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ]),
       transition(':leave', [
-        animate('500ms ease-in', style({ opacity: 0, transform: 'translateY(10px)' }))
+        animate('500ms ease-in', style({ opacity: 1, transform: 'translateY(15px)' }))
+      ])
+    ]),
+    trigger('cancelamentoAnimacao', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(15px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('500ms ease-in', style({ opacity: 1, transform: 'translateY(-15px)' }))
       ])
     ])
   ]
@@ -40,6 +49,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   ngOnInit(): void {
     this.getSemanaAtual(); //Pega os dias da semana atual de Segunda a Sexta.
     this.loadAgendamentos();
+
   }
 
   // Função Responsável por carregar os agendamentos na inicialização.

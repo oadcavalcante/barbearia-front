@@ -24,6 +24,10 @@ export class DialogoCancelamentoAgendamentoComponent {
   }
 
   onYesClick(): void {
+    // if(this.saram != '7442068') {
+    //   alert('Só é possível desmarcar com um SARAM Administrador! Contate o GAP-BR');
+    //   return;
+    // }
     this.dialogRef.close({ dia: this.data.diaSemana, hora: this.data.hora, saram: this.data.saram });
   }
 }
