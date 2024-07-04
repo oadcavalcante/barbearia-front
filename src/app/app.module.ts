@@ -1,7 +1,6 @@
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // formulários e requisições
 import { HttpClientModule } from '@angular/common/http';
@@ -33,6 +32,9 @@ import { DialogoAgendamentoComponent } from './components/agendamento/dialogo-ag
 import { DialogoCancelamentoAgendamentoComponent } from './components/agendamento/dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
 import { OrientacoesAgendamentoComponent } from './components/agendamento/orientacoes-agendamento/orientacoes-agendamento.component';
 
+// módulo de animações
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,10 @@ import { OrientacoesAgendamentoComponent } from './components/agendamento/orient
     MatSnackBarModule,
     MatDialogModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+
+    //Módulo de Animações
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

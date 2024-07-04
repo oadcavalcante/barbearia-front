@@ -1,5 +1,4 @@
 <mat-card>
-  <!-- Header do Card -->
   <mat-card-header>
     <mat-card-title class="mat-card-title-center">
       BARBEARIA - GRADUADOS - RAMAL 2691
@@ -31,7 +30,7 @@
               (click)="desmarcarAgendamento(agendamento)"
               title="clique para desmarcar"
             >
-              <div class="agendamento-info">
+              <div class="agendamento-info" [@agendamentoAnimacao]>
                 <span
                   >{{ agendamento.militar.gradposto }}
                   {{ agendamento.militar.nomeGuerra }}</span
@@ -43,6 +42,7 @@
                 mat-raised-button
                 color="primary"
                 (click)="agendarCorte(dia, hora)"
+                [@agendamentoAnimacao]
               >
                 Disponível
               </button>

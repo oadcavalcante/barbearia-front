@@ -7,11 +7,23 @@ import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { Militar } from 'src/app/interfaces/militar';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-tabela-semanal-agendamento',
   templateUrl: './tabela-semanal-agendamento.component.html',
-  styleUrls: ['./tabela-semanal-agendamento.component.css']
+  styleUrls: ['./tabela-semanal-agendamento.component.css'],
+  animations: [
+    trigger('agendamentoAnimacao', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('500ms ease-in', style({ opacity: 0, transform: 'translateY(10px)' }))
+      ])
+    ])
+  ]
 })
 export class TabelaSemanalAgendamentoComponent implements OnInit {
   dataSource: Agendamento[] = [];
