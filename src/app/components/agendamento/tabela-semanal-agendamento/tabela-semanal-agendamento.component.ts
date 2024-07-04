@@ -5,7 +5,8 @@ import { DialogoCancelamentoAgendamentoComponent } from '../dialogo-cancelamento
 import { Agendamento } from 'src/app/interfaces/agendamento';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { Militar } from 'src/app/interfaces/militar';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-tabela-semanal-agendamento',
@@ -34,25 +35,32 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
     this.agendamentoService.getAgendamentos()
       .pipe(
         tap(agendamentos => {
-          const agendamentosFiltrados = agendamentos.filter(agendamento => {
-            const dataAgendamento = new Date(agendamento.data);
-            // Ajusta para que a semana seja considerada começando na segunda-feira
-            const diaSemana = dataAgendamento.getDay();
-            if (diaSemana === 0) { // Se for Domingo (0), ajusta para segunda-feira (1)
-              dataAgendamento.setDate(dataAgendamento.getDate() + 1);
-            } else if (diaSemana !== 1) { // Se não for segunda-feira, retrocede para segunda-feira
-              dataAgendamento.setDate(dataAgendamento.getDate() - (diaSemana - 1));
-            }
+          if (agendamentos && agendamentos.length > 0) {
+            const agendamentosFiltrados = agendamentos.filter(agendamento => {
+              const dataAgendamento = new Date(agendamento.data);
+              const diaSemana = dataAgendamento.getDay();
+              if (diaSemana === 0) {
+                dataAgendamento.setDate(dataAgendamento.getDate() + 1);
+              } else if (diaSemana !== 1) {
+                dataAgendamento.setDate(dataAgendamento.getDate() - (diaSemana - 1));
+              }
+              return dataAgendamento >= this.inicioDaSemana && dataAgendamento <= this.fimDaSemana;
+            });
 
-            // Filtra apenas os agendamentos dentro do intervalo de segunda a sexta-feira
-            return dataAgendamento >= this.inicioDaSemana && dataAgendamento <= this.fimDaSemana;
-          });
-
-          this.dataSource = agendamentosFiltrados.map(agendamento => ({
-            ...agendamento,
-            diaSemana: agendamento.diaSemana.trim().toLowerCase(),
-            hora: agendamento.hora.trim()
-          }));
+            this.dataSource = agendamentosFiltrados.map(agendamento => ({
+              ...agendamento,
+              diaSemana: agendamento.diaSemana.trim().toLowerCase(),
+              hora: agendamento.hora.trim()
+            }));
+          } else {
+            console.warn('Nenhum agendamento disponível para essa semana.');
+            this.dataSource = [];
+          }
+        }),
+        catchError(error => {
+          console.error('Erro ao obter agendamentos:', error);
+          this.dataSource = [];
+          return of([]);
         })
       )
       .subscribe();
