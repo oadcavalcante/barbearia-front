@@ -36,6 +36,8 @@ import { OrientacoesAgendamentoComponent } from './components/agendamento/orient
 // módulo de animações
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TelaLoginComponent } from './components/tela-login/tela-login.component';
+import { GraduadosComponent } from './components/graduados/graduados.component';
+import { OficiaisComponent } from './components/oficiais/oficiais.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { TelaLoginComponent } from './components/tela-login/tela-login.component
     DialogoCancelamentoAgendamentoComponent,
     OrientacoesAgendamentoComponent,
     TabelaSemanalAgendamentoComponent,
-    TelaLoginComponent
+    TelaLoginComponent,
+    GraduadosComponent,
+    OficiaisComponent
   ],
   imports: [
     BrowserModule,

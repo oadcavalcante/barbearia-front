@@ -36,7 +36,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class TabelaSemanalAgendamentoComponent implements OnInit {
   dataSource: Agendamento[] = [];
-  diasDaSemana: string[] = ['segunda', 'terca', 'quarta', 'quinta', 'sexta'];
+  diasDaSemana: string[] = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
   horarios: string[] = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '18:00', '18:30'];
   inicioDaSemana!: Date;
   fimDaSemana!: Date;
