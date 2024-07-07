@@ -16,6 +16,11 @@ mat-card-header {
   color: #fff;
   padding-bottom: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  width: 100%;
+}
+
+mat-card-title {
+  font-size: 2rem;
 }
 
 mat-card-content {
@@ -90,33 +95,4 @@ td {
 
 .mat-icon {
   font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  mat-card {
-    width: 90%;
-    padding: 12px;
-  }
-
-  th,
-  td {
-    padding: 10px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  mat-card {
-    padding: 8px;
-  }
-
-  th,
-  td {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  td button {
-    padding: 4px 6px;
-  }
 }

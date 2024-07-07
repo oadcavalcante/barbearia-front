@@ -4,11 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 // formulários e requisições
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 //roteamento
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 
 // componentes gerais
@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // componentes do agendamento
 import { TabelaSemanalAgendamentoComponent } from './components/agendamento/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
@@ -34,6 +35,7 @@ import { OrientacoesAgendamentoComponent } from './components/agendamento/orient
 
 // módulo de animações
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TelaLoginComponent } from './components/tela-login/tela-login.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DialogoAgendamentoComponent,
     DialogoCancelamentoAgendamentoComponent,
     OrientacoesAgendamentoComponent,
-    TabelaSemanalAgendamentoComponent
+    TabelaSemanalAgendamentoComponent,
+    TelaLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDialogModule,
     MatListModule,
     MatSelectModule,
+    MatCheckboxModule,
 
     //Módulo de Animações
     BrowserAnimationsModule
