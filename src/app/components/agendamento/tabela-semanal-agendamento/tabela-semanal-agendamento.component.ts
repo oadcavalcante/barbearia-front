@@ -8,6 +8,7 @@ import { Militar } from 'src/app/interfaces/militar';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabela-semanal-agendamento',
@@ -35,6 +36,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class TabelaSemanalAgendamentoComponent implements OnInit {
+  titleHeader: string = '';
+  ramal: string = '';
   dataSource: Agendamento[] = [];
   diasDaSemana: string[] = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
   horarios: string[] = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '18:00', '18:30'];
@@ -43,13 +46,24 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private agendamentoService: AgendamentoService
+    private agendamentoService: AgendamentoService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getSemanaAtual(); //Pega os dias da semana atual de Segunda a Sexta.
     this.loadAgendamentos();
+    this.getOficiaisOrGraduados();
+  }
 
+  getOficiaisOrGraduados() {
+    if (this.router.url == '/oficiais') {
+      this.titleHeader = 'OFICIAIS';
+      this.ramal = '2691';
+    } else if (this.router.url == '/graduados') {
+      this.titleHeader = 'GRADUADOS';
+      this.ramal = '2689';
+    }
   }
 
   // Função Responsável por carregar os agendamentos na inicialização.
