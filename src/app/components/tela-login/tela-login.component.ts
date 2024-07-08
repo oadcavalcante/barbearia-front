@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class TelaLoginComponent {
 
+  login() {
+    console.log('Clicou no botão de login.'); 
+  }
 }

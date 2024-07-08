@@ -13,14 +13,14 @@
     <form>
       <mat-form-field appearance="fill">
         <mat-label>CPF</mat-label>
-        <input matInput placeholder="CPF" required />
+        <input matInput required />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Senha</mat-label>
-        <input matInput placeholder="SENHA" type="password" required />
+        <input matInput type="password" required />
       </mat-form-field>
       <mat-checkbox>Lembrar acesso</mat-checkbox>
-      <button mat-raised-button color="primary">ENTRAR</button>
+      <button (click)="login()" mat-raised-button color="primary">ENTRAR</button>
     </form>
     <a href="/esqueci"><small>Esqueci/Não possuo código de acesso</small></a>
   </div>

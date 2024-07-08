@@ -1,16 +1,16 @@
 .login-container {
+  background-image: url("/assets/images/santos-dumont.jpg");
+  background-position: initial;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url("/assets/images/santos-dumont.jpg");
 }
 
 .login-form {
-  width: 450px;
+  width: 400px;
   text-align: center;
   background: rgba(255, 255, 255, 0.8);
   padding: 2em;
