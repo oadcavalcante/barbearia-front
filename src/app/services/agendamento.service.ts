@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError } from 'rxjs';
 import { Agendamento } from '../interfaces/agendamento';
 
 @Injectable({
@@ -11,18 +11,45 @@ export class AgendamentoService {
 
   constructor(private http: HttpClient) { }
 
+  // Retorna os cabeçalhos HTTP com o token JWT
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('barbearia-token') || sessionStorage.getItem('barbearia-token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   // Faz uma requisição GET para API buscando todos os agendamentos.
   getAgendamentos(): Observable<Agendamento[]> {
-    return this.http.get<Agendamento[]>(this.apiUrl);
+    const headers = this.getHeaders();
+    return this.http.get<Agendamento[]>(this.apiUrl, { headers }).pipe(
+      catchError((error: any) => {
+        console.error('Erro ao obter agendamentos:', error);
+        return [];
+      })
+    );
   }
 
   // Faz uma requisição POST para API salvando o agendamento.
   saveAgendamento(agendamento: Agendamento): Observable<Agendamento> {
-    return this.http.post<Agendamento>(this.apiUrl, agendamento);
+    const headers = this.getHeaders();
+    return this.http.post<Agendamento>(this.apiUrl, agendamento, { headers }).pipe(
+      catchError(error => {
+        console.error('Erro ao salvar agendamento:', error);
+        throw error;
+      })
+    );
   }
 
   // Faz uma requisição DELETE para API excluindo o agendamento.
   deleteAgendamento(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const headers = this.getHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers }).pipe(
+      catchError(error => {
+        console.error('Erro ao excluir agendamento:', error);
+        throw error;
+      })
+    );
   }
 }

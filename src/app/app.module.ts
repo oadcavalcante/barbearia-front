@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 // formulários e requisições
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -28,16 +28,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // componentes do agendamento
-import { TabelaSemanalAgendamentoComponent } from './components/agendamento/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
-import { DialogoAgendamentoComponent } from './components/agendamento/dialogo-agendamento/dialogo-agendamento.component';
-import { DialogoCancelamentoAgendamentoComponent } from './components/agendamento/dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
-import { OrientacoesAgendamentoComponent } from './components/agendamento/orientacoes-agendamento/orientacoes-agendamento.component';
+import { TabelaSemanalAgendamentoComponent } from './components/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
+import { DialogoAgendamentoComponent } from './components/dialogo-agendamento/dialogo-agendamento.component';
+import { DialogoCancelamentoAgendamentoComponent } from './components/dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
+import { OrientacoesAgendamentoComponent } from './components/orientacoes-agendamento/orientacoes-agendamento.component';
 
 // módulo de animações
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TelaLoginComponent } from './components/tela-login/tela-login.component';
 import { GraduadosComponent } from './components/graduados/graduados.component';
 import { OficiaisComponent } from './components/oficiais/oficiais.component';
+import { LoginComponent } from './auth/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -47,9 +47,9 @@ import { OficiaisComponent } from './components/oficiais/oficiais.component';
     DialogoCancelamentoAgendamentoComponent,
     OrientacoesAgendamentoComponent,
     TabelaSemanalAgendamentoComponent,
-    TelaLoginComponent,
     GraduadosComponent,
-    OficiaisComponent
+    OficiaisComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

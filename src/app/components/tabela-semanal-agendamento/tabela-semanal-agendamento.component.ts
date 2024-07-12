@@ -59,10 +59,10 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   getOficiaisOrGraduados() {
     if (this.router.url == '/oficiais') {
       this.titleHeader = 'OFICIAIS';
-      this.ramal = '2691';
+      this.ramal = '2689';
     } else if (this.router.url == '/graduados') {
       this.titleHeader = 'GRADUADOS';
-      this.ramal = '2689';
+      this.ramal = '2691';
     }
   }
 
@@ -168,7 +168,6 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
         this.agendamentoService.saveAgendamento(novoAgendamento).subscribe(response => {
           this.dataSource.push(response);
           this.dataSource = [...this.dataSource];
-          console.log(this.dataSource);
         }, error => {
           console.error('Erro ao salvar agendamento:', error);
         });
