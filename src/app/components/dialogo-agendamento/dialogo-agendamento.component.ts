@@ -17,7 +17,7 @@ export class DialogoAgendamentoComponent implements OnInit {
   };
 
   opcoesGradPosto?: string[] = [];
-  opcoesGraduacao: string[] = ['3S', '2S', '1S', 'SO'];
+  opcoesGraduacao: string[] = ['S2','S1','CB','3S', '2S', '1S', 'SO'];
   opcoesPostos: string[] = ['ASP', '2T', '1T', 'CAP', 'MJ', 'TEN CEL', 'CEL'];
   oms: string[] = ['CCA-BR', 'CDCAER', 'CIAER', 'COMGEP', 'COPAC', 'DIREF', 'DIRENS', 'EMAER', 'OABR', 'SEFA', 'CENCIAR', 'SECPROM', 'ASPAER', 'CECOMSAER', 'GABAER', 'COJAER'];
 

@@ -47,7 +47,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private agendamentoService: AgendamentoService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
