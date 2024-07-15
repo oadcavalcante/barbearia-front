@@ -37,7 +37,7 @@ import { OrientacoesAgendamentoComponent } from './components/orientacoes-agenda
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GraduadosComponent } from './components/graduados/graduados.component';
 import { OficiaisComponent } from './components/oficiais/oficiais.component';
-import { LoginComponent } from './auth/pages/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
