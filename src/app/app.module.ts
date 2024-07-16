@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 
 // componentes gerais
-import { RodapeComponent } from './components/rodape/rodape.component';
+import { RodapeComponent } from './components/layout/rodape/rodape.component';
 
 // angular material
 import { MatTableModule } from '@angular/material/table';
@@ -28,15 +28,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // componentes do agendamento
-import { TabelaSemanalAgendamentoComponent } from './components/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
-import { DialogoAgendamentoComponent } from './components/dialogo-agendamento/dialogo-agendamento.component';
-import { DialogoCancelamentoAgendamentoComponent } from './components/dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
-import { OrientacoesAgendamentoComponent } from './components/orientacoes-agendamento/orientacoes-agendamento.component';
+import { TabelaSemanalAgendamentoComponent } from './components/agendamento/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
+import { DialogoAgendamentoComponent } from './components/agendamento/dialogo-agendamento/dialogo-agendamento.component';
+import { DialogoCancelamentoAgendamentoComponent } from './components/agendamento/dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
+import { OrientacoesAgendamentoComponent } from './components/agendamento/orientacoes-agendamento/orientacoes-agendamento.component';
 
 // módulo de animações
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GraduadosComponent } from './components/graduados/graduados.component';
-import { OficiaisComponent } from './components/oficiais/oficiais.component';
+import { GraduadosComponent } from './pages/graduados/graduados.component';
+import { OficiaisComponent } from './pages/oficiais/oficiais.component';
 import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({

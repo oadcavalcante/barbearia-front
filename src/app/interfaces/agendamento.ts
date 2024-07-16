@@ -8,4 +8,3 @@ export interface Agendamento {
   militar: Militar;
   disponivel: boolean;
 }
-
