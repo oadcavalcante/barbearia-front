@@ -8,13 +8,13 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-dialogo-cancelamento-agendamento',
-  templateUrl: './dialogo-cancelamento-agendamento.component.html',
+  selector: 'app-dialogo-cancelamento',
+  templateUrl: './dialogo-cancelamento.component.html',
 })
-export class DialogoCancelamentoAgendamentoComponent {
+export class DialogoCancelamentoComponent {
   saram: string = '';
   constructor(
-    public dialogRef: MatDialogRef<DialogoCancelamentoAgendamentoComponent>,
+    public dialogRef: MatDialogRef<DialogoCancelamentoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
   }

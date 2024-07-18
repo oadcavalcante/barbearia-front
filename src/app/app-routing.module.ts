@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TabelaSemanalAgendamentoComponent } from './components/agendamento/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
 import { OficiaisComponent } from './pages/oficiais/oficiais.component';
 import { GraduadosComponent } from './pages/graduados/graduados.component';
 import { AuthGuard } from './auth/auth.guard';

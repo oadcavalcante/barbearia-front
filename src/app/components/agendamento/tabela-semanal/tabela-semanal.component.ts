@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoAgendamentoComponent } from '../dialogo-agendamento/dialogo-agendamento.component';
-import { DialogoCancelamentoAgendamentoComponent } from '../dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
+import { DialogoCancelamentoComponent } from '../dialogo-cancelamento/dialogo-cancelamento.component';
 import { Agendamento } from 'src/app/interfaces/agendamento';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { Militar } from 'src/app/interfaces/militar';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tabela-semanal-agendamento',
-  templateUrl: './tabela-semanal-agendamento.component.html',
-  styleUrls: ['./tabela-semanal-agendamento.component.css'],
+  selector: 'app-tabela-semanal',
+  templateUrl: './tabela-semanal.component.html',
+  styleUrls: ['./tabela-semanal.component.css'],
   animations: [
     trigger('agendamentoAnimacao', [
       transition(':enter', [
@@ -35,10 +34,13 @@ import { Router } from '@angular/router';
     ])
   ]
 })
-export class TabelaSemanalAgendamentoComponent implements OnInit {
-  titleHeader: string = '';
-  ramal: string = '';
-  dataSource: Agendamento[] = [];
+export class TabelaSemanalComponent implements OnInit {
+  @Input() titleHeader: string = '';
+  @Input() ramal: string = '';
+  @Input() tipoMilitar: 'oficiais' | 'graduados' = 'oficiais';
+  @Input() opcoesGradPosto: string[] = [];
+
+  agendamentos: Agendamento[] = [];
   diasDaSemana: string[] = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
   horarios: string[] = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '18:00', '18:30'];
   inicioDaSemana!: Date;
@@ -47,23 +49,11 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private agendamentoService: AgendamentoService,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.getSemanaAtual(); //Pega os dias da semana atual de Segunda a Sexta.
     this.loadAgendamentos();
-    this.getOficiaisOrGraduados();
-  }
-
-  getOficiaisOrGraduados() {
-    if (this.router.url == '/oficiais') {
-      this.titleHeader = 'OFICIAIS';
-      this.ramal = '2689';
-    } else if (this.router.url == '/graduados') {
-      this.titleHeader = 'GRADUADOS';
-      this.ramal = '2691';
-    }
   }
 
   // Função Responsável por carregar os agendamentos na inicialização.
@@ -83,19 +73,19 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
               return dataAgendamento >= this.inicioDaSemana && dataAgendamento <= this.fimDaSemana;
             });
 
-            this.dataSource = agendamentosFiltrados.map(agendamento => ({
+            this.agendamentos = agendamentosFiltrados.map(agendamento => ({
               ...agendamento,
               diaSemana: agendamento.diaSemana.trim().toLowerCase(),
               hora: agendamento.hora.trim()
             }));
           } else {
             console.warn('Nenhum agendamento disponível para essa semana.');
-            this.dataSource = [];
+            this.agendamentos = [];
           }
         }),
         catchError(error => {
           console.error('Erro ao obter agendamentos:', error);
-          this.dataSource = [];
+          this.agendamentos = [];
           return of([]);
         })
       )
@@ -122,7 +112,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   getAgendamentoParaDiaHora(dia: string, hora: string): Agendamento | undefined {
     const diaSemana = dia.split(' - ')[0].trim().toLowerCase();
     const horaFormatada = hora.slice(0, 5);
-    const agendamento = this.dataSource.find((agendamento) => {
+    const agendamento = this.agendamentos.find((agendamento) => {
       const diaMatch = agendamento.diaSemana.toLowerCase() === diaSemana;
       const horaAgendamentoFormatada = agendamento.hora.slice(0, 5);
       const horaMatch = horaAgendamentoFormatada === horaFormatada;
@@ -145,7 +135,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
   agendarCorte(diaSemana: string, hora: string): void {
     const dialogRef = this.dialog.open(DialogoAgendamentoComponent, {
       width: '300px',
-      data: { diaSemana, hora: hora },
+      data: { diaSemana, hora: hora, opcoesGradPosto: this.opcoesGradPosto },
     });
 
     dialogRef.afterClosed().subscribe((militar: Militar) => {
@@ -160,14 +150,15 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
             saram: militar.saram,
             gradposto: militar.gradposto,
             nomeGuerra: militar.nomeGuerra.toUpperCase(),
-            om: militar.om
+            om: militar.om,
+            categoria: militar.categoria
           },
           disponivel: false
         };
 
         this.agendamentoService.saveAgendamento(novoAgendamento).subscribe(response => {
-          this.dataSource.push(response);
-          this.dataSource = [...this.dataSource];
+          this.agendamentos.push(response);
+          this.agendamentos = [...this.agendamentos];
         }, error => {
           console.error('Erro ao salvar agendamento:', error);
         });
@@ -177,7 +168,7 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
 
   // Função responsável por Abrir o Diálogo de Cancelamento e Desmarcar.
   desmarcarAgendamento(element: Agendamento): void {
-    const dialogRef = this.dialog.open(DialogoCancelamentoAgendamentoComponent, {
+    const dialogRef = this.dialog.open(DialogoCancelamentoComponent, {
       width: '300px',
       data: { diaSemana: element.diaSemana, hora: element.hora },
       autoFocus: true
@@ -187,12 +178,16 @@ export class TabelaSemanalAgendamentoComponent implements OnInit {
       if (result) {
         if (element.id) {
           this.agendamentoService.deleteAgendamento(element.id).subscribe(() => {
-            this.dataSource = this.dataSource.filter(a => a.id !== element.id);
+            this.agendamentos = this.agendamentos.filter(a => a.id !== element.id);
           }, error => {
             console.error('Erro ao desmarcar agendamento:', error);
           });
         }
       }
     });
+  }
+
+  setCategoriaMilitar() {
+
   }
 }

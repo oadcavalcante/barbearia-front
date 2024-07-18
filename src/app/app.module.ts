@@ -28,10 +28,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // componentes do agendamento
-import { TabelaSemanalAgendamentoComponent } from './components/agendamento/tabela-semanal-agendamento/tabela-semanal-agendamento.component';
+import { TabelaSemanalComponent } from './components/agendamento/tabela-semanal/tabela-semanal.component';
 import { DialogoAgendamentoComponent } from './components/agendamento/dialogo-agendamento/dialogo-agendamento.component';
-import { DialogoCancelamentoAgendamentoComponent } from './components/agendamento/dialogo-cancelamento-agendamento/dialogo-cancelamento-agendamento.component';
-import { OrientacoesAgendamentoComponent } from './components/agendamento/orientacoes-agendamento/orientacoes-agendamento.component';
+import { DialogoCancelamentoComponent } from './components/agendamento/dialogo-cancelamento/dialogo-cancelamento.component';
+import { OrientacoesComponent } from './components/agendamento/orientacoes/orientacoes.component';
 
 // módulo de animações
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,9 +44,9 @@ import { LoginComponent } from './pages/login/login.component';
     AppComponent,
     RodapeComponent,
     DialogoAgendamentoComponent,
-    DialogoCancelamentoAgendamentoComponent,
-    OrientacoesAgendamentoComponent,
-    TabelaSemanalAgendamentoComponent,
+    DialogoCancelamentoComponent,
+    OrientacoesComponent,
+    TabelaSemanalComponent,
     GraduadosComponent,
     OficiaisComponent,
     LoginComponent,
