@@ -16,7 +16,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   animations: [
     trigger('agendamentoAnimacao', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-15px)' }),
+        style({ opacity: 0, transform: 'translateY(-25px)' }),
         animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ]),
       transition(':leave', [
@@ -25,7 +25,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ]),
     trigger('cancelamentoAnimacao', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(15px)' }),
+        style({ opacity: 0, transform: 'translateY(25px)' }),
         animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ]),
       transition(':leave', [
