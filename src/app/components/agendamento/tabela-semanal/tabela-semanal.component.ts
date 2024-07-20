@@ -8,6 +8,7 @@ import { Militar } from 'src/app/interfaces/militar';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-tabela-semanal',
@@ -49,6 +50,7 @@ export class TabelaSemanalComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private agendamentoService: AgendamentoService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -187,7 +189,7 @@ export class TabelaSemanalComponent implements OnInit {
     });
   }
 
-  setCategoriaMilitar() {
-
+  logout(){
+    this.authService.logout();
   }
 }
