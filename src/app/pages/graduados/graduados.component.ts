@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { slideInLogin } from '../login/login.component';
 
 @Component({
   selector: 'app-graduados',
   templateUrl: './graduados.component.html',
-  styleUrls: ['./graduados.component.css']
+  styleUrls: ['./graduados.component.css'],
+  animations: [slideInLogin]
 })
 export class GraduadosComponent implements OnInit {
   titleHeader = 'GRADUADOS';

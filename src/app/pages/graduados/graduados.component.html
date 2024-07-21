@@ -1,6 +1,8 @@
-<app-header [titleHeader]="titleHeader" [ramal]="ramal"></app-header>
-<app-tabela-semanal
-  [opcoesGradPosto]="opcoesGraduacoes"
-  [tipoMilitar]="tipoMilitar"
-></app-tabela-semanal>
-<app-orientacoes></app-orientacoes>
+<div [@slideInLogin]>
+  <app-header [titleHeader]="titleHeader" [ramal]="ramal"></app-header>
+  <app-tabela-semanal
+    [opcoesGradPosto]="opcoesGraduacoes"
+    [tipoMilitar]="tipoMilitar"
+  ></app-tabela-semanal>
+  <app-orientacoes></app-orientacoes>
+</div>

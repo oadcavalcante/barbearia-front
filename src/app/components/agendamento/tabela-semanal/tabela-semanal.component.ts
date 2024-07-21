@@ -8,7 +8,6 @@ import { Militar } from 'src/app/interfaces/militar';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-tabela-semanal',
@@ -130,7 +129,7 @@ export class TabelaSemanalComponent implements OnInit {
     return data;
   }
 
-  // Função responsável por Abrir o Diálogo de Agendamento e Salvar.
+  // Função responsável por Abrir o Diálogo de Agendamento.
   agendarCorte(diaSemana: string, hora: string): void {
     const dialogRef = this.dialog.open(DialogoAgendamentoComponent, {
       width: '300px',
