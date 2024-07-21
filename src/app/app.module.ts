@@ -39,6 +39,7 @@ import { GraduadosComponent } from './pages/graduados/graduados.component';
 import { OficiaisComponent } from './pages/oficiais/oficiais.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
+import { DialogoLogoutComponent } from './components/layout/dialogo-logout/dialogo-logout.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
     OficiaisComponent,
     LoginComponent,
     HeaderComponent,
+    DialogoLogoutComponent,
   ],
   imports: [
     BrowserModule,

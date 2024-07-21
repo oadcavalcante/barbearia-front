@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DialogoLogoutComponent } from '../dialogo-logout/dialogo-logout.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const slideInLogout = trigger('slideInLogout', [
   state('void', style({
@@ -27,10 +29,17 @@ export class HeaderComponent {
   @Input() ramal: string = '';
 
   constructor(
+    private dialog: MatDialog,
     private authService: AuthService
   ) { }
 
-  logout(){
-    this.authService.logout();
+  logout() {
+    const dialogRef = this.dialog.open(DialogoLogoutComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      
+    });
   }
 }
