@@ -38,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GraduadosComponent } from './pages/graduados/graduados.component';
 import { OficiaisComponent } from './pages/oficiais/oficiais.component';
 import { LoginComponent } from './pages/login/login.component';
+import { HeaderComponent } from './components/layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { LoginComponent } from './pages/login/login.component';
     GraduadosComponent,
     OficiaisComponent,
     LoginComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

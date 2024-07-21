@@ -36,8 +36,6 @@ import { AuthService } from 'src/app/auth/auth.service';
   ]
 })
 export class TabelaSemanalComponent implements OnInit {
-  @Input() titleHeader: string = '';
-  @Input() ramal: string = '';
   @Input() tipoMilitar: 'oficiais' | 'graduados' = 'oficiais';
   @Input() opcoesGradPosto: string[] = [];
 
@@ -50,7 +48,6 @@ export class TabelaSemanalComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private agendamentoService: AgendamentoService,
-    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -187,9 +184,5 @@ export class TabelaSemanalComponent implements OnInit {
         }
       }
     });
-  }
-
-  logout(){
-    this.authService.logout();
   }
 }
