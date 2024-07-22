@@ -10,7 +10,7 @@ import { slideInLogin } from '../login/login.component';
 export class GraduadosComponent implements OnInit {
   titleHeader = 'GRADUADOS';
   ramal = '2691';
-  tipoMilitar: 'graduados' = 'graduados';
+  categoria = 'graduado';
   opcoesGraduacoes: string[] = ['S2','S1','CB','3S', '2S', '1S', 'SO'];
 
   ngOnInit(): void { }

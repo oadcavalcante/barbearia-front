@@ -6,5 +6,6 @@ export interface Agendamento {
   hora: string;
   diaSemana: string;
   militar: Militar;
+  categoria: string;
   disponivel: boolean;
 }

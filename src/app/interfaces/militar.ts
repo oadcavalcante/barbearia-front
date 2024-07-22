@@ -4,5 +4,6 @@ export interface Militar {
   gradposto: string;
   nomeGuerra: string;
   om: string;
-  categoria?: string;
+  categoria: string;
 }
+  

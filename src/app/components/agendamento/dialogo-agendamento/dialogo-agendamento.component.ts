@@ -15,7 +15,8 @@ export class DialogoAgendamentoComponent implements OnInit {
     saram: '',
     gradposto: '',
     nomeGuerra: '',
-    om: ''
+    om: '',
+    categoria: ''
   };
 
   oms: string[] = ['CCA-BR', 'CDCAER', 'CIAER', 'COMGEP', 'COPAC', 'DIREF', 'DIRENS', 'EMAER', 'OABR', 'SEFA', 'CENCIAR', 'SECPROM', 'ASPAER', 'CECOMSAER', 'GABAER', 'COJAER'];

@@ -34,7 +34,7 @@ export class AgendamentoService {
   // Faz uma requisição POST para API salvando o agendamento.
   saveAgendamento(agendamento: Agendamento): Observable<Agendamento> {
     const headers = this.getHeaders();
-    return this.http.post<Agendamento>(this.apiUrl, agendamento, { headers }).pipe(
+    return this.http.post<Agendamento>(this.apiUrl, agendamento, { headers }).pipe( 
       catchError(error => {
         console.error('Erro ao salvar agendamento:', error);
         throw error;
@@ -47,7 +47,7 @@ export class AgendamentoService {
     const headers = this.getHeaders();
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers }).pipe(
       catchError(error => {
-        console.error('Erro ao excluir agendamento:', error);
+        console.error('Erro ao excluir agendamento: ', error);
         throw error;
       })
     );

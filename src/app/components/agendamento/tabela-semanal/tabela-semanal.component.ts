@@ -8,6 +8,8 @@ import { Militar } from 'src/app/interfaces/militar';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MilitarService } from 'src/app/services/militar.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tabela-semanal',
@@ -35,8 +37,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class TabelaSemanalComponent implements OnInit {
-  @Input() tipoMilitar: 'oficiais' | 'graduados' = 'oficiais';
+  @Input() categoria: string = '';
   @Input() opcoesGradPosto: string[] = [];
+
+  oficiais: Militar[] = [];
+  graduados: Militar[] = [];
 
   agendamentos: Agendamento[] = [];
   diasDaSemana: string[] = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
@@ -47,15 +52,39 @@ export class TabelaSemanalComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private agendamentoService: AgendamentoService,
+    private militarService: MilitarService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.getSemanaAtual(); //Pega os dias da semana atual de Segunda a Sexta.
-    this.loadAgendamentos();
+    this.loadGradOficialData();
   }
 
-  // Função Responsável por carregar os agendamentos na inicialização.
-  loadAgendamentos(): void {
+  //Carrega os dados de acordo com a rota /oficiais ou graduados
+  loadGradOficialData() {
+    const currentRoute = this.route.snapshot.url[0]?.path;
+    if (currentRoute === 'oficiais') {
+      this.categoria = 'oficial';
+    } else if (currentRoute === 'graduados') {
+      this.categoria = 'graduado';
+    }
+    this.loadMilitares(this.categoria);
+    this.loadAgendamentos(this.categoria);
+  }
+
+  loadMilitares(categoria: string) {
+    this.militarService.getMilitaresByCategoria(categoria).subscribe(data => {
+      if (categoria === 'oficial') {
+        this.oficiais = data;
+      } else if (categoria === 'graduado') {
+        this.graduados = data;
+      }
+    });
+  }
+
+  // Função Responsável por carregar os agendamentos de acordo com a categoria (oficial ou graduado)
+  loadAgendamentos(categoria: string): void {
     this.agendamentoService.getAgendamentos()
       .pipe(
         tap(agendamentos => {
@@ -68,7 +97,7 @@ export class TabelaSemanalComponent implements OnInit {
               } else if (diaSemana !== 1) {
                 dataAgendamento.setDate(dataAgendamento.getDate() - (diaSemana - 1));
               }
-              return dataAgendamento >= this.inicioDaSemana && dataAgendamento <= this.fimDaSemana;
+              return dataAgendamento >= this.inicioDaSemana && dataAgendamento <= this.fimDaSemana && agendamento.militar.categoria === categoria;
             });
 
             this.agendamentos = agendamentosFiltrados.map(agendamento => ({
@@ -149,8 +178,9 @@ export class TabelaSemanalComponent implements OnInit {
             gradposto: militar.gradposto,
             nomeGuerra: militar.nomeGuerra.toUpperCase(),
             om: militar.om,
-            categoria: militar.categoria
+            categoria: this.categoria
           },
+          categoria: this.categoria,
           disponivel: false
         };
 
