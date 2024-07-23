@@ -2,6 +2,8 @@ import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Militar } from 'src/app/interfaces/militar';
 import { Router, NavigationEnd } from '@angular/router';
+import { LdapService } from 'src/app/services/ldap.service';
+import { UserLdap } from 'src/app/interfaces/userLdap';
 
 @Component({
   selector: 'app-dialogo-agendamento',
@@ -11,6 +13,8 @@ import { Router, NavigationEnd } from '@angular/router';
 export class DialogoAgendamentoComponent implements OnInit {
   @Input() opcoesGradPosto?: string[] = [];
 
+  //Dados do Ldap
+  ldapData: UserLdap[] = [];
   militar: Militar = {
     saram: '',
     gradposto: '',
@@ -24,10 +28,24 @@ export class DialogoAgendamentoComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogoAgendamentoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private ldapService: LdapService
   ) { }
 
   ngOnInit(): void {
     this.opcoesGradPosto = this.data.opcoesGradPosto;
+    this.setLdapData();
+  }
+
+  setLdapData() {
+    this.ldapService.ldapData$.subscribe(data => {
+      this.ldapData = data;
+      if (this.ldapData.length > 0) {
+        this.militar.nomeGuerra = this.ldapData[0].fabGuerra;
+        this.militar.gradposto = this.ldapData[0].fabPostoGrad;
+        this.militar.om = this.ldapData[0].fabOM;
+        this.militar.saram = this.ldapData[0].fabNrOrdem;
+      }
+    });
   }
 
   onNoClick(): void {

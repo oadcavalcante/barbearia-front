@@ -9,6 +9,7 @@
       />
       <h1><b>FORÇA AÉREA BRASILEIRA</b></h1>
     </div>
+
     <h2>LOGIN</h2>
     <form (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
@@ -33,12 +34,13 @@
           required
         />
       </mat-form-field>
-      <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe">Lembrar acesso</mat-checkbox>
+      <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe"
+        >Lembrar acesso</mat-checkbox
+      >
       <button class="mb-2" type="submit" mat-raised-button color="primary">
         ENTRAR
       </button>
       <span matError *ngIf="errorMessage">{{ errorMessage }}</span>
     </form>
-    <!-- <span>Não tem uma conta?</span><a href="/register"> Se inscreva</a> -->
   </div>
 </div>

@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MilitarService } from 'src/app/services/militar.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-tabela-semanal',
@@ -53,7 +54,7 @@ export class TabelaSemanalComponent implements OnInit {
     private dialog: MatDialog,
     private agendamentoService: AgendamentoService,
     private militarService: MilitarService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {

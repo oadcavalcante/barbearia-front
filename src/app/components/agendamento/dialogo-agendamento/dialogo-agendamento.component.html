@@ -9,11 +9,12 @@
       [(ngModel)]="militar.saram"
       maxlength="9"
       (input)="validateNumericInput($event)"
+      [disabled]="true"
     />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Graduação / Posto</mat-label>
-    <mat-select [(ngModel)]="militar.gradposto">
+    <mat-select [(ngModel)]="militar.gradposto" [disabled]="true">
       <mat-option *ngFor="let opcao of opcoesGradPosto" [value]="opcao">
         {{ opcao }}
       </mat-option>
@@ -21,11 +22,11 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Nome de Guerra</mat-label>
-    <input matInput [(ngModel)]="militar.nomeGuerra" maxlength="25" />
+    <input matInput [(ngModel)]="militar.nomeGuerra" maxlength="25" [disabled]="true" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Organização Militar (OM)</mat-label>
-    <mat-select [(ngModel)]="militar.om">
+    <mat-select [(ngModel)]="militar.om" [disabled]="true">
       <mat-option *ngFor="let opcao of oms" [value]="opcao">
         {{ opcao }}
       </mat-option>

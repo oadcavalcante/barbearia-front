@@ -7,7 +7,7 @@ import { Militar } from '../interfaces/militar';
   providedIn: 'root'
 })
 export class MilitarService {
-  private apiUrl = 'http://localhost:8080/api/militares';
+  private readonly apiUrl = 'http://localhost:8080/api/militares';
 
   constructor(private http: HttpClient) { }
 

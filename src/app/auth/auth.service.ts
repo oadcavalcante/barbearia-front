@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Auth } from '../interfaces/auth';
@@ -10,21 +10,21 @@ import { Auth } from '../interfaces/auth';
 })
 export class AuthService {
 
-  private apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(login: string, password: string): Observable<Auth> {
-    return this.http.post<Auth>(`${this.apiUrl}/auth/login`, { login, password });
+    return this.http.post<Auth>(`${this.apiUrl}/auth/login`, { login, password })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   //Salva o token no localStorage caso o usuário marque o checkbox rememberMe, caso contrário salva no sessionStorage.
   saveToken(token: string, rememberMe: boolean): void {
-    if (rememberMe) {
-      localStorage.setItem('barbearia-token', token);
-    } else {
-      sessionStorage.setItem('barbearia-token', token);
-    }
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem('barbearia-token', token);
   }
 
   getToken(): string | null {
@@ -39,6 +39,11 @@ export class AuthService {
 
   // Método para verificar se o usuário está autenticado
   isAuthenticated(): boolean {
-    return !!(localStorage.getItem('barbearia-token') || sessionStorage.getItem('barbearia-token'));
+    return !!this.getToken();
+  }
+
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(error);
   }
 }

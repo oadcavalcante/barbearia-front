@@ -7,7 +7,7 @@ import { Agendamento } from '../interfaces/agendamento';
   providedIn: 'root'
 })
 export class AgendamentoService {
-  private apiUrl = 'http://localhost:8080/api/agendamentos';
+  private readonly apiUrl = 'http://localhost:8080/api/agendamentos';
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +34,7 @@ export class AgendamentoService {
   // Faz uma requisição POST para API salvando o agendamento.
   saveAgendamento(agendamento: Agendamento): Observable<Agendamento> {
     const headers = this.getHeaders();
-    return this.http.post<Agendamento>(this.apiUrl, agendamento, { headers }).pipe( 
+    return this.http.post<Agendamento>(this.apiUrl, agendamento, { headers }).pipe(
       catchError(error => {
         console.error('Erro ao salvar agendamento:', error);
         throw error;
