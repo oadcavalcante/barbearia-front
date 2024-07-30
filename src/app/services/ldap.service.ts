@@ -30,12 +30,12 @@ export class LdapService {
   }
 
   private saveLdapData(data: UserLdap[]): void {
-    localStorage.setItem('ldap-data', JSON.stringify(data));
+    sessionStorage.setItem('ldap-data', JSON.stringify(data));
   }
 
   private loadData(): UserLdap[] {
     // Carrega os dados do localStorage
-    const data = localStorage.getItem('ldap-data');
+    const data = sessionStorage.getItem('ldap-data');
     return data ? JSON.parse(data) : [];
   }
 }

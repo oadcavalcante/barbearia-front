@@ -10,7 +10,6 @@ import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MilitarService } from 'src/app/services/militar.service';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-tabela-semanal',

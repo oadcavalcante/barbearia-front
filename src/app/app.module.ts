@@ -40,6 +40,7 @@ import { OficiaisComponent } from './pages/oficiais/oficiais.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { DialogoLogoutComponent } from './components/layout/dialogo-logout/dialogo-logout.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DialogoLogoutComponent } from './components/layout/dialogo-logout/dialo
     LoginComponent,
     HeaderComponent,
     DialogoLogoutComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
