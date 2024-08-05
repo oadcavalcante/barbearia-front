@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MilitarService } from 'src/app/services/militar.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tabela-semanal',
@@ -51,6 +52,7 @@ export class TabelaSemanalComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private agendamentoService: AgendamentoService,
     private militarService: MilitarService,
     private route: ActivatedRoute,
@@ -173,7 +175,7 @@ export class TabelaSemanalComponent implements OnInit {
           hora: hora,
           diaSemana: diaSemana.split(' - ')[0],
           militar: {
-            id: 0,
+            id: militar.id,
             saram: militar.saram,
             gradposto: militar.gradposto,
             nomeGuerra: militar.nomeGuerra.toUpperCase(),
@@ -187,8 +189,11 @@ export class TabelaSemanalComponent implements OnInit {
         this.agendamentoService.saveAgendamento(novoAgendamento).subscribe(response => {
           this.agendamentos.push(response);
           this.agendamentos = [...this.agendamentos];
+          this.snackBar.open('Agendamento salvo com sucesso!', 'X', { duration: 3000 });
         }, error => {
-          console.error('Erro ao salvar agendamento:', error);
+          this.snackBar.open(error.error || 'Erro ao salvar o agendamento', 'X', {
+            duration: 5000
+          });
         });
       }
     });
