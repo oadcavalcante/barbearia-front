@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -42,8 +42,18 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  private handleError(error: any): Observable<never> {
-    console.error('An error occurred:', error);
-    return throwError(error);
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Ocorreu um erro inesperado.';
+
+    if (error.error instanceof ErrorEvent) {
+      // Erro no lado do cliente
+      errorMessage = `Erro: ${error.error.message}`;
+    } else {
+      // Erro no lado do servidor
+      errorMessage = `Código do erro: ${error.status}\nMensagem: ${error.message}`;
+    }
+
+    // Propaga o erro para o componente
+    return throwError(() => new Error(errorMessage));
   }
 }

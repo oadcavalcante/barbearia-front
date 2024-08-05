@@ -1,5 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Militar } from 'src/app/interfaces/militar';
+import { UserLdap } from 'src/app/interfaces/userLdap';
+import { LdapService } from 'src/app/services/ldap.service';
 
 export interface DialogData {
   diaSemana: string;
@@ -13,9 +16,10 @@ export interface DialogData {
 })
 export class DialogoCancelamentoComponent {
   saram: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<DialogoCancelamentoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {
   }
 
@@ -24,10 +28,6 @@ export class DialogoCancelamentoComponent {
   }
 
   onYesClick(): void {
-    // if(this.saram != '7442068') {
-    //   alert('Só é possível desmarcar com um SARAM Administrador! Contate o GAP-BR');
-    //   return;
-    // }
     this.dialogRef.close({ dia: this.data.diaSemana, hora: this.data.hora, saram: this.data.saram });
   }
 }
