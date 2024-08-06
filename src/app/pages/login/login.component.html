@@ -16,11 +16,13 @@
         <mat-label>CPF</mat-label>
         <input
           matInput
-          type="number"
+          type="text"
           id="login"
           name="login"
           [(ngModel)]="login"
           required
+          maxlength="11"
+          pattern="[0-9]*"
         />
       </mat-form-field>
       <mat-form-field appearance="fill">
