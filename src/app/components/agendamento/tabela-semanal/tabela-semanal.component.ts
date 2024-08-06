@@ -63,6 +63,37 @@ export class TabelaSemanalComponent implements OnInit {
     this.loadGradOficialData();
   }
 
+  //Método para desabilitar os botões caso o horário atual não esteja entre 9h10 da segunda e 12h de sexta.
+  desabilitarBotoes(): boolean {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 é domingo, 1 é segunda, ..., 6 é sábado
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    // Define os limites de tempo
+    const startDay = 1; // Segunda-feira
+    const startHour = 9;
+    const startMinute = 10;
+    const endDay = 5; // Sexta-feira
+    const endHour = 12;
+    const endMinute = 0;
+    // Verifica se a data e hora atuais estão dentro do intervalo desejado
+    if (dayOfWeek > startDay && dayOfWeek < endDay) {
+      return false; // Botão habilitado entre terça-feira e quinta-feira
+    }
+    if (dayOfWeek === startDay) {
+      if (hours > startHour || (hours === startHour && minutes >= startMinute)) {
+        return false; // Botão habilitado na segunda-feira a partir das 9h10
+      }
+    }
+    if (dayOfWeek === endDay) {
+      if (hours < endHour || (hours === endHour && minutes < endMinute)) {
+        return false; // Botão habilitado na sexta-feira antes das 12h
+      }
+    }
+    // Se nenhuma das condições acima for satisfeita, os botões são desabilitados
+    return true;
+  }
+
   //Carrega os dados de acordo com a rota /oficiais ou graduados
   loadGradOficialData() {
     const currentRoute = this.route.snapshot.url[0]?.path;

@@ -32,6 +32,7 @@
                 color="primary"
                 (click)="agendarCorte(dia, hora)"
                 [@cancelamentoAnimacao]
+                [disabled]="desabilitarBotoes()"
               >
                 Disponível
               </button>
