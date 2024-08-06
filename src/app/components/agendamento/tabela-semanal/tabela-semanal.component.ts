@@ -203,7 +203,7 @@ export class TabelaSemanalComponent implements OnInit {
   desmarcarAgendamento(element: Agendamento): void {
     const dialogRef = this.dialog.open(DialogoCancelamentoComponent, {
       width: '300px',
-      data: { diaSemana: element.diaSemana, hora: element.hora },
+      data: { diaSemana: element.diaSemana, hora: element.hora, saram: element.militar.saram },
       autoFocus: true
     });
 

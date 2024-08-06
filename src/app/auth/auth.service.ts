@@ -21,6 +21,12 @@ export class AuthService {
       );
   }
 
+  logout(): void {
+    localStorage.removeItem('barbearia-token');
+    sessionStorage.removeItem('barbearia-token');
+    this.router.navigate(['/login']);
+  }
+
   //Salva o token no localStorage caso o usuário marque o checkbox rememberMe, caso contrário salva no sessionStorage.
   saveToken(token: string, rememberMe: boolean): void {
     const storage = rememberMe ? localStorage : sessionStorage;
@@ -29,12 +35,6 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('barbearia-token') || sessionStorage.getItem('barbearia-token');
-  }
-
-  logout(): void {
-    localStorage.removeItem('barbearia-token');
-    sessionStorage.removeItem('barbearia-token');
-    this.router.navigate(['/login']);
   }
 
   // Método para verificar se o usuário está autenticado
