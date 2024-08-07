@@ -24,6 +24,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('barbearia-token');
     sessionStorage.removeItem('barbearia-token');
+    sessionStorage.removeItem('ldap-data');
     this.router.navigate(['/login']);
   }
 
