@@ -6,15 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 
 export const slideInLogout = trigger('slideInLogout', [
   state('void', style({
-    transform: 'translateX(-100%)',
+    transform: 'translateY(-100%)',
     opacity: 0
   })),
   state('*', style({
-    transform: 'translateX(0%)',
+    transform: 'translateY(0%)',
     opacity: 1
   })),
   transition('void => *', [
-    animate('500ms ease-in-out')
+    animate('800ms ease-in-out')
   ])
 ]);
 
@@ -39,7 +39,7 @@ export class HeaderComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      
+
     });
   }
 }

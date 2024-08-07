@@ -2,7 +2,9 @@ mat-card {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-inline: 30px;
+  margin-inline: 50px;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 table {

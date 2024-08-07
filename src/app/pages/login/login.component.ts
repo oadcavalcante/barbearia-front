@@ -6,20 +6,6 @@ import { slideInLogout } from 'src/app/components/layout/header/header.component
 import { UserLdap } from 'src/app/interfaces/userLdap';
 import { LdapService } from 'src/app/services/ldap.service';
 
-export const slideInLogin = trigger('slideInLogin', [
-  state('void', style({
-    transform: 'translateX(100%)',
-    opacity: 0
-  })),
-  state('*', style({
-    transform: 'translateX(0%)',
-    opacity: 1
-  })),
-  transition('void => *', [
-    animate('500ms ease-in-out')
-  ])
-]);
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

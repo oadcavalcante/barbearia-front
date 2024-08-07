@@ -2,7 +2,7 @@ mat-card-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #2a74cc;
+  background-color: rgb(42, 116, 204, 0.8);
   color: #fff;
   padding-bottom: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
